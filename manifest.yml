@@ -1,0 +1,17 @@
+---
+language: binary
+default_versions: []
+dependency_deprecation_dates: []
+dependencies: []
+pre_package: scripts/build.sh
+include_files:
+- VERSION
+- bin/compile
+- bin/compile.bat
+- bin/detect
+- bin/detect.bat
+- bin/finalize
+- bin/release
+- bin/release.bat
+- bin/supply
+- manifest.yml
