@@ -2,3 +2,5 @@
 /binary_buildpack*.zip
 /log/
 /pkg/
+
+metrics_buildpack*.zip

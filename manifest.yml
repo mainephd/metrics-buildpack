@@ -1,5 +1,5 @@
 ---
-language: binary
+language: metrics
 default_versions: []
 dependency_deprecation_dates: []
 dependencies: []
