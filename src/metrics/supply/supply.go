@@ -1,7 +1,6 @@
 package supply
 
 import (
-	"os"
 	"path/filepath"
 
 	"github.com/cloudfoundry/libbuildpack"
@@ -26,33 +25,16 @@ func (s *Supplier) Run() error {
 }
 
 func installTelegraf(s *Supplier) error {
-	metricsInstallDir := filepath.Join(s.Stager.DepDir(), "metrics")
 
-	tarDownloadDest := filepath.Join(metricsInstallDir, "tmp", "telegraf.tar.gz")
+	metricsBinDir := filepath.Join(s.Stager.DepDir(), "metrics", "bin")
 
-	metricsBinDir := filepath.Join(metricsInstallDir, "bin")
-
-	s.Log.Info("Downloading Telegraf...")
 	dependency, err := s.Manifest.DefaultVersion("telegraf")
 	if err != nil {
 		return err
 	}
 
-	if err := s.Manifest.FetchDependency(dependency, tarDownloadDest); err != nil {
+	if err := s.Manifest.InstallDependency(dependency, metricsBinDir); err != nil {
 		return err
-	}
-
-	s.Log.Info("Extracting Telegraf...")
-	if err := libbuildpack.ExtractTarGz(tarDownloadDest, metricsBinDir); err != nil {
-		return err
-	}
-
-	if err := os.Remove(tarDownloadDest); err != nil {
-		s.Log.Info("Error Removing Tar file: %s", err.Error())
-	}
-
-	if err := os.Remove(filepath.Join(metricsInstallDir, "tmp")); err != nil {
-		s.Log.Info("Error Removing tmp directory: %s", err.Error())
 	}
 
 	if err := s.Stager.AddBinDependencyLink(filepath.Join(metricsBinDir, "telegraf", "telegraf"), "telegraf"); err != nil {
