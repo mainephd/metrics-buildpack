@@ -10,6 +10,14 @@ type Finalizer struct {
 	Log      *libbuildpack.Logger
 }
 
-func Run(sf *Finalizer) error {
+func New(stager libbuildpack.Stager, logger *libbuildpack.Logger) *Finalizer {
+	return &Finalizer{
+		BuildDir: stager.BuildDir(),
+		DepDir:   stager.DepDir(),
+		Log:      logger,
+	}
+}
+
+func (f *Finalizer) Run(sf *Finalizer) error {
 	return nil
 }

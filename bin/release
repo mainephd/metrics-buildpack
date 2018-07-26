@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
 # bin/release <build-dir>
-
-
-
+# Need to determine how to modify the start command for prior buildpack and start the sidecar
 echo -e "---\ndefault_process_types:\n  web: '>&2 echo Error: no start command specified during staging or launch && exit 1'"
