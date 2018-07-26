@@ -31,7 +31,7 @@ func main() {
 
 	sf := finalize.New(stager, logger)
 
-	if err := sf.Run(&sf); err != nil {
+	if err := sf.Run(sf); err != nil {
 		os.Exit(12)
 	}
 

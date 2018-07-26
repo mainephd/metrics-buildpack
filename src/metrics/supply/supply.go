@@ -10,21 +10,13 @@ import (
 	"github.com/cloudfoundry/libbuildpack"
 )
 
-type Manifest interface {
-}
-type Stager interface {
-	AddBinDependencyLink(string, string) error
-	DepDir() string
-	WriteEnvFile(string, string) error
-	WriteProfileD(scriptName, scriptContents string) error
-}
 type Supplier struct {
-	Stager   Stager
-	Manifest Manifest
+	Stager   *libbuildpack.Stager
+	Manifest *libbuildpack.Manifest
 	Log      *libbuildpack.Logger
 }
 
-func New(stager Stager, manifest Manifest, logger *libbuildpack.Logger) *Supplier {
+func New(stager *libbuildpack.Stager, manifest *libbuildpack.Manifest, logger *libbuildpack.Logger) *Supplier {
 	return &Supplier{
 		Stager:   stager,
 		Manifest: manifest,
