@@ -1,9 +1,6 @@
 package supply
 
 import (
-	"fmt"
-	"io"
-	"net/http"
 	"os"
 	"path/filepath"
 
@@ -67,38 +64,4 @@ func installTelegraf(s *Supplier) error {
 	}
 
 	return s.Stager.WriteEnvFile("PATH", metricsBinDir)
-}
-
-func downloadFile(url, destFile string) error {
-	resp, err := http.Get(url)
-	if err != nil {
-		return err
-	}
-	defer resp.Body.Close()
-
-	if resp.StatusCode < 200 || resp.StatusCode > 299 {
-		return fmt.Errorf("could not download: %d", resp.StatusCode)
-	}
-
-	return writeToFile(resp.Body, destFile, 0555)
-}
-
-func writeToFile(source io.Reader, destFile string, mode os.FileMode) error {
-	err := os.MkdirAll(filepath.Dir(destFile), 0755)
-	if err != nil {
-		return err
-	}
-
-	fh, err := os.OpenFile(destFile, os.O_RDWR|os.O_CREATE|os.O_TRUNC, mode)
-	if err != nil {
-		return err
-	}
-	defer fh.Close()
-
-	_, err = io.Copy(fh, source)
-	if err != nil {
-		return err
-	}
-
-	return nil
 }
