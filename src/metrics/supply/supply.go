@@ -1,6 +1,7 @@
 package supply
 
 import (
+	"metrics/data"
 	"path/filepath"
 
 	"github.com/cloudfoundry/libbuildpack"
@@ -38,6 +39,10 @@ func installTelegraf(s *Supplier) error {
 	}
 
 	if err := s.Stager.AddBinDependencyLink(filepath.Join(metricsBinDir, "telegraf", "telegraf"), "telegraf"); err != nil {
+		return err
+	}
+
+	if err := s.Stager.WriteProfileD("telegraf.sh", data.TelegrafBackgroundScript()); err != nil {
 		return err
 	}
 
