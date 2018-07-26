@@ -35,10 +35,12 @@ func installTelegraf(s *Supplier) error {
 
 	metricsBinDir := filepath.Join(metricsInstallDir, "bin")
 
+	s.Log.Info("Downloading Telegraf...")
 	if err := downloadFile("https://dl.influxdata.com/telegraf/releases/telegraf-1.7.2-static_linux_amd64.tar.gz", tarDownloadDest); err != nil {
 		return err
 	}
 
+	s.Log.Info("Extracting Telegraf...")
 	if err := libbuildpack.ExtractTarGz(tarDownloadDest, metricsBinDir); err != nil {
 		return err
 	}
