@@ -1,8 +1,16 @@
 ---
 language: metrics
-default_versions: []
+default_versions: 
+- name: telegraf
+  version: 1.7.2
 dependency_deprecation_dates: []
-dependencies: []
+dependencies:
+- name: telegraf
+  version: 1.7.2
+  uri: https://dl.influxdata.com/telegraf/releases/telegraf-1.7.2-static_linux_amd64.tar.gz
+  sha256: 6d5a4502ed7bd4faaf0cd92a823c3453aff486dcabfd4d2a4a6ac15f630a71a0
+  cf_stacks:
+  - cflinuxfs2
 pre_package: scripts/build.sh
 include_files:
 - VERSION
