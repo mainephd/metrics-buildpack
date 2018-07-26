@@ -22,7 +22,7 @@ func New(stager *libbuildpack.Stager, manifest *libbuildpack.Manifest, logger *l
 }
 
 func (s *Supplier) Run() error {
-	telegrafConfigFile := filepath.Join(gs.Stager.BuildDir(), "telegraf.conf")
+	telegrafConfigFile := filepath.Join(s.Stager.BuildDir(), "telegraf.conf")
 	isTelegraf, _ := libbuildpack.FileExists(telegrafConfigFile)
 	if isTelegraf {
 		return installTelegraf(s)
