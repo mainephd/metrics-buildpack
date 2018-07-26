@@ -47,7 +47,7 @@ func installTelegraf(s *Supplier) error {
 		s.Log.Info("Error Removing Tar file: %s", err.Error())
 	}
 
-	if err := s.Stager.AddBinDependencyLink(filepath.Join(metricsBinDir, "telegraf"), "telegraf"); err != nil {
+	if err := s.Stager.AddBinDependencyLink(filepath.Join(metricsBinDir, "telegraf", "telegraf"), "telegraf"); err != nil {
 		return err
 	}
 
